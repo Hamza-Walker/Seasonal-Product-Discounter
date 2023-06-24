@@ -19,12 +19,13 @@ public enum Season {
     public Set<Month> getMonths() {
         return months;
     }
-
-    public boolean contains(LocalDate date)
-    {
+// remove False this is just a place holder
+    public boolean contains(LocalDate date) {
+        return false;
     }
-
+// remove winter later
     public Season shift(int amount) {
+        return WINTER ;
     }
 
 }
