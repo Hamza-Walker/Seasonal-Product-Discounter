@@ -2,6 +2,7 @@ package com.codecool.seasonalproductdiscounter.model.enums;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Arrays;
 import java.util.Set;
 
 public enum Season {
@@ -19,13 +20,21 @@ public enum Season {
     public Set<Month> getMonths() {
         return months;
     }
-// remove False this is just a place holder
-    public boolean contains(LocalDate date) {
+    public boolean contains(Month month) {
+        for (Season season: Season.values()){
+            if(season.containsMonth(month)) return true;
+        }
         return false;
     }
+    private boolean containsMonth (Month month){
+        return Arrays.asList(months).contains(month);
+    }
 // remove winter later
-    public Season shift(int amount) {
-        return WINTER ;
+    public Season shift(int shiftValue) {
+        Season[] seasons = Season.values();
+        int currentIndex = this.ordinal();
+        int newIndex = (currentIndex + shiftValue) % seasons.length;
+        return seasons[newIndex];
     }
 
 }
