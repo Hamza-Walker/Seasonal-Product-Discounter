@@ -7,6 +7,8 @@ import com.codecool.seasonalproductdiscounter.service.discounts.DiscountService;
 import com.codecool.seasonalproductdiscounter.service.products.ProductProvider;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,10 +22,10 @@ public class SeasonalProductDiscounterUi {
     public SeasonalProductDiscounterUi(
             ProductProvider productProvider,
             DiscountProvider discountProvider,
-            DiscountService discounterService) {
+            DiscountService discountService) {
         this.productProvider = productProvider;
         this.discountProvider = discountProvider;
-        this.discountService = discounterService;
+        this.discountService = discountService;
         this.scanner = new Scanner(System.in);
     }
 
@@ -41,16 +43,44 @@ public class SeasonalProductDiscounterUi {
     }
 
     private LocalDate getDate() {
-        return null;
+        LocalDate date = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        while (date == null) {
+            System.out.print("Enter a date (yyyy-MM-dd): ");
+            String input = scanner.nextLine();
+
+            try {
+                date = LocalDate.parse(input, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please enter a valid date.");
+            }
+        }
+
+        return date;
     }
 
     private void printCatalog() {
+        System.out.println("Product Catalog:");
+        productProvider.getProducts().forEach(System.out::println);
+        System.out.println();
     }
 
     private void printPromotions() {
+        System.out.println("Available Promotions:");
+        discountProvider.getDiscounts().forEach(System.out::println);
+        System.out.println();
     }
 
     private void printOffers(LocalDate date) {
+        System.out.println("Offers for " + date + ":");
+        List<Offer> offers = getOffers(date);
+
+        if (offers.isEmpty()) {
+            System.out.println("No offers available for the specified date.");
+        } else {
+            offers.forEach(System.out::println);
+        }
     }
 
     private List<Offer> getOffers(LocalDate date) {
@@ -66,4 +96,3 @@ public class SeasonalProductDiscounterUi {
         return discounted;
     }
 }
-
