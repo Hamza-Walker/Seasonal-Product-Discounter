@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record Offer(Product product, LocalDate date, List<Discount> discounts, double price) {
+public record Offer(Product product, LocalDate date, List<Discount> discounts, double discountedPrice) {
 
     @Override
     public String toString() {
@@ -15,8 +15,7 @@ public record Offer(Product product, LocalDate date, List<Discount> discounts, d
                 "product=" + product +
                 ", date=" + date +
                 ", discounts=" + discounts +
-                ", price=" + price +
+                ", discountedPrice=" + discountedPrice +
                 '}';
     }
 }
-
