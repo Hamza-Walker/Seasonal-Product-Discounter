@@ -22,14 +22,16 @@ public enum Season {
     }
     public boolean contains(Month month) {
         for (Season season: Season.values()){
-            if(season.containsMonth(month)) return true;
+            if(season.containsMonth(month)) {
+                return true;
+            }
         }
         return false;
     }
     private boolean containsMonth (Month month){
-        return Arrays.asList(months).contains(month);
+        return months.contains(month);
     }
-// remove winter later
+
     public Season shift(int shiftValue) {
         Season[] seasons = Season.values();
         int currentIndex = this.ordinal();

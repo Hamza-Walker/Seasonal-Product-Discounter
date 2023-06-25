@@ -7,7 +7,7 @@ import java.time.Month;
 public class TestSeasonMethods {
         public static void main(String[] args) {
             Season currentSeason = Season.SUMMER;
-            Season shiftedSeason = currentSeason.shift(1);
+            Season shiftedSeason = currentSeason.shift(2);
             System.out.println(shiftedSeason); // Output: Autumn
 
             Month january = Month.JANUARY;
